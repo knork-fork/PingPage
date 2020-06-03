@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PingPage.DAL;
 
 namespace PingPage.DAL.Migrations
 {
     [DbContext(typeof(PingPageDbContext))]
-    partial class PingPageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200603233619_AddInviteLinkTable")]
+    partial class AddInviteLinkTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

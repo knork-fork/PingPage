@@ -3,40 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PingPage.DAL;
 
 namespace PingPage.DAL.Migrations
 {
     [DbContext(typeof(PingPageDbContext))]
-    partial class PingPageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200603232200_AddPingTable")]
+    partial class AddPingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("PingPage.Model.ApiKey", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("KeyHash");
-
-                    b.Property<string>("Type");
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("ApiKeys");
-                });
 
             modelBuilder.Entity("PingPage.Model.Friendship", b =>
                 {
@@ -57,23 +40,6 @@ namespace PingPage.DAL.Migrations
                     b.ToTable("Friendships");
                 });
 
-            modelBuilder.Entity("PingPage.Model.InviteLink", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Link");
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("InviteLinks");
-                });
-
             modelBuilder.Entity("PingPage.Model.Ping", b =>
                 {
                     b.Property<int>("ID")
@@ -88,7 +54,7 @@ namespace PingPage.DAL.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Pings");
+                    b.ToTable("Ping");
                 });
 
             modelBuilder.Entity("PingPage.Model.User", b =>
@@ -106,14 +72,6 @@ namespace PingPage.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PingPage.Model.ApiKey", b =>
-                {
-                    b.HasOne("PingPage.Model.User", "User")
-                        .WithMany("ApiKeys")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("PingPage.Model.Friendship", b =>
                 {
                     b.HasOne("PingPage.Model.User", "Receiver")
@@ -123,14 +81,6 @@ namespace PingPage.DAL.Migrations
                     b.HasOne("PingPage.Model.User", "Sender")
                         .WithMany("FriendshipsSent")
                         .HasForeignKey("SenderID");
-                });
-
-            modelBuilder.Entity("PingPage.Model.InviteLink", b =>
-                {
-                    b.HasOne("PingPage.Model.User", "User")
-                        .WithMany("InviteLinks")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PingPage.Model.Ping", b =>

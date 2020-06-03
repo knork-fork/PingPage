@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PingPage.DAL;
 
 namespace PingPage.DAL.Migrations
 {
     [DbContext(typeof(PingPageDbContext))]
-    partial class PingPageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200603232649_AddApiKeyTable")]
+    partial class AddApiKeyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,23 +57,6 @@ namespace PingPage.DAL.Migrations
                     b.HasIndex("SenderID");
 
                     b.ToTable("Friendships");
-                });
-
-            modelBuilder.Entity("PingPage.Model.InviteLink", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Link");
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("InviteLinks");
                 });
 
             modelBuilder.Entity("PingPage.Model.Ping", b =>
@@ -123,14 +108,6 @@ namespace PingPage.DAL.Migrations
                     b.HasOne("PingPage.Model.User", "Sender")
                         .WithMany("FriendshipsSent")
                         .HasForeignKey("SenderID");
-                });
-
-            modelBuilder.Entity("PingPage.Model.InviteLink", b =>
-                {
-                    b.HasOne("PingPage.Model.User", "User")
-                        .WithMany("InviteLinks")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PingPage.Model.Ping", b =>

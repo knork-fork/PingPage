@@ -19,5 +19,9 @@ namespace PingPage.Model
         public virtual ICollection<Friendship> FriendshipsSent { get; set; }
         [InverseProperty("Receiver")]
         public virtual ICollection<Friendship> FriendshipsReceived { get; set; }
+
+        public virtual ICollection<Ping> Pings { get; set; }
+        public virtual ICollection<ApiKey> ApiKeys { get; set; }
+        public virtual ICollection<InviteLink> InviteLinks { get; set; }
     }
 }
