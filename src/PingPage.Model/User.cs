@@ -21,5 +21,8 @@ namespace PingPage.Model
         public virtual ICollection<Ping> Pings { get; set; }
         public virtual ICollection<ApiKey> ApiKeys { get; set; }
         public virtual ICollection<InviteLink> InviteLinks { get; set; }
+
+        [NotMapped]
+        public string FullName { get { return FirstName + " " + LastName; } }
     }
 }
