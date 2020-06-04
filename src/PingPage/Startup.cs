@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PingPage.DAL;
+using PingPage.Model;
 
 namespace PingPage
 {
@@ -37,6 +39,17 @@ namespace PingPage
                 options.UseSqlServer(
                     Configuration.GetConnectionString("PingPageDbContext")));
 
+            services.AddIdentity<User, IdentityRole>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<PingPageDbContext>();
+
+            services.AddAuthentication().AddFacebook(opt => {
+                opt.AppId = "243974883548934";
+                opt.AppSecret = "9a389c0d11d8529a39b20d6be02903c3";
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -56,6 +69,8 @@ namespace PingPage
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

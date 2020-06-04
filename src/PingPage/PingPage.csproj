@@ -14,4 +14,8 @@
     <ProjectReference Include="..\PingPage.Model\PingPage.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
+  </ItemGroup>
+
 </Project>
