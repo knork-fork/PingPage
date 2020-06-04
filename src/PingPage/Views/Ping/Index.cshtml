@@ -1,0 +1,31 @@
+﻿@model PingPage.Controllers.BasicUserData
+
+@{
+    ViewData["Title"] = "Ping!";
+}
+
+<h2>Your own, personal, ping page</h2>
+
+<h5>To let others know you are OK, please click the ping button on this page.</h5>
+
+<hr />
+
+@if (Model.LastPing != null)
+{
+    DateTime timestamp = (DateTime)Model.LastPing;
+    <h3>Last ping: <strong>@timestamp.ToString("d.M.yyyy. HH:mm")</strong> (and @timestamp.Second seconds...) </h3>
+}
+else
+{
+    <h3>This user has no pings yet.</h3>
+}
+
+<div class="container" style="margin-top:100px;">
+    <div class="row">
+        <div class="col text-center">
+            <a asp-area="" asp-controller="Ping" asp-action="Ping">
+                <button type="button" class="btn btn-success" style="font-size:32px;">I am alive!</button>
+            </a>
+        </div>
+    </div>
+</div>
