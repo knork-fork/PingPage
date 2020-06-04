@@ -47,6 +47,14 @@ namespace PingPage.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -60,6 +68,8 @@ namespace PingPage.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
 
             Username = userName;
 
@@ -67,6 +77,8 @@ namespace PingPage.Areas.Identity.Pages.Account.Manage
             {
                 Email = email,
                 PhoneNumber = phoneNumber,
+                FirstName = firstName,
+                LastName = lastName
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -98,6 +110,29 @@ namespace PingPage.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            var firstName = user.FirstName;
+            if (Input.FirstName != firstName)
+            {
+                user.FirstName = Input.FirstName;
+                var setFirstNameResult = await _userManager.UpdateAsync(user);
+                if (!setFirstNameResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting first name for user with ID '{userId}'.");
+                }
+            }
+
+            var lastName = user.LastName;
+            if (Input.LastName != lastName)
+            {
+                user.LastName = Input.LastName;
+                var setLastNameResult = await _userManager.UpdateAsync(user);
+                if (!setLastNameResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting last name for user with ID '{userId}'.");
+                }
+            }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
