@@ -14,7 +14,7 @@ namespace PingPage.Model
         public DateTime PingTimestamp { get; set; }
 
         [ForeignKey(nameof(User))]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public User User { get; set; }
     }
 }

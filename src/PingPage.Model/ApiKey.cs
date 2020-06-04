@@ -15,7 +15,7 @@ namespace PingPage.Model
         public string Type { get; set; }
 
         [ForeignKey(nameof(User))]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public User User { get; set; }
     }
 }
