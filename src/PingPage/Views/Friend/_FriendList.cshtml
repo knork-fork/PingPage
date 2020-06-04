@@ -1,0 +1,42 @@
+﻿@using PingPage.Model
+@model List<User>
+
+<table style="margin-top: 20px;" class="table table-condensed">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Ping</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                @if (@item.Pings != null)
+                {
+                    var ping = item.Pings.LastOrDefault();
+
+                    if (ping != null)
+                    {
+                        <td>@ping.PingTimestamp</td>
+                    }
+                    else
+                    {
+                        <td>No pings</td>
+                    }
+                }
+                else
+                {
+                    <td>No pings</td>
+                }
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">[unfriend]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

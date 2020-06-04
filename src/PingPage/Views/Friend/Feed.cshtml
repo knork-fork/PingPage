@@ -1,0 +1,17 @@
+﻿@using PingPage.Models
+@model List<FeedUser>
+
+@{
+    ViewData["Title"] = "Feed";
+}
+
+<h2>Latest pings from your friends</h2>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <h4>
+            @item.FirstName @item.LastName @item.GetMessage @item.Ping
+        </h4>
+    </div>
+}
